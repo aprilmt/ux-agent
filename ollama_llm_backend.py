@@ -39,7 +39,7 @@ async def read_root():
 
 # Ollama configuration
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "mistral:latest")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma:2b-instruct")
 
 # Pydantic models
 class UXAgentRequest(BaseModel):
@@ -714,7 +714,7 @@ if __name__ == "__main__":
     print("📚 API Docs: http://localhost:8000/docs")
     print(f"🤖 Using Ollama service with model: {OLLAMA_MODEL}")
     print("💡 Make sure Ollama is running: ollama serve")
-    print("💡 Install model: ollama pull llama3.2")
+    print("💡 Install model: ollama pull gemma:2b-instruct")
     
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
