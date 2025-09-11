@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX AI Agent - Start Here</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        /* Icon and Branding */
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .brand-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #4a4a4a;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+        }
+        
+        .author {
+            font-size: 1em;
+            color: #999;
+            margin: 0 0 20px 0;
+        }
+        
+        .function-desc {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            margin: 0 0 40px 0;
+            font-weight: 500;
+        }
+        
+        .success-box {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .button {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: background 0.2s;
+        }
+        
+        .button:hover {
+            background: #333;
+        }
+        
+        .status-box {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .status-connected {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-disconnected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Icon and Branding Section -->
+        <div class="icon">
+            <img src="docuux.svg" alt="DocuUX Logo" style="width: 80px; height: 80px;">
+        </div>
+        
+        <p class="function-desc">UX Workflow, Thinking & Writing Assistant</p>
+        
+        <div class="success-box">
+            <h3>✅ System Ready!</h3>
+            <p>Your UX AI Agent is working perfectly. No more OpenWebUI issues!</p>
+        </div>
+        
+        <div class="status-box">
+            <h3>🔧 System Status</h3>
+            <p><strong>Frontend:</strong> Running on port 8080</p>
+            <p><strong>Backend:</strong> <span id="backend-status" class="status-indicator">Checking...</span></p>
+        </div>
+        
+        <div style="margin: 30px 0;">
+            <a href="ux-agent.html" class="button">🚀 Open UX AI Agent</a>
+        </div>
+        
+        <p style="color: #999; font-size: 0.9em; margin-top: 30px;">
+            If you're still seeing OpenWebUI, try:<br>
+            • Hard refresh (Ctrl+F5 or Cmd+Shift+R)<br>
+            • Clear browser cache<br>
+            • Try incognito/private mode
+        </p>
+    </div>
+
+    <script>
+        // Check backend status
+        fetch('http://localhost:8000/health')
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('backend-status');
+                statusElement.textContent = 'Connected';
+                statusElement.className = 'status-indicator status-connected';
+            })
+            .catch(error => {
+                const statusElement = document.getElementById('backend-status');
+                statusElement.textContent = 'Disconnected';
+                statusElement.className = 'status-indicator status-disconnected';
+            });
+    </script>
+</body>
+</html>
