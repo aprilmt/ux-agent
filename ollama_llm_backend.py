@@ -335,12 +335,57 @@ Be conversational, helpful, and context-aware. If you've already recommended a s
     }
 }
 
-# Mock responses for fallback
+# Enhanced mock responses for fallback (when Ollama is not available)
 MOCK_RESPONSES = {
-    "workflow": "I'm your UX Workflow Specialist! I can help you optimize design processes, implement user research methodologies, and improve cross-functional collaboration. What specific workflow challenge are you facing?",
-    "thinking": "I'm your UX Strategic Thinker! I specialize in user psychology, strategic planning, and aligning UX with business goals. How can I help you develop a deeper understanding of your users?",
-    "writing": "I'm your UX Writing Expert! I help create clear, effective content and microcopy that guides users and improves their experience. What writing challenge can I help you with?",
-    "triage": "I've analyzed your request and recommend consulting with our UX specialists. Based on your question, I suggest:\n1) For process and workflow questions → UX Workflow Specialist.\n2) For strategic and user psychology questions → UX Strategic Thinker.\n3) For content and writing questions → UX Writing Expert.\n\nWould you like me to connect you with a specific specialist?"
+    "workflow": """I'm your UX Workflow Specialist! I can help you optimize design processes, implement user research methodologies, and improve cross-functional collaboration.
+
+**Key Areas I Help With:**
+- Design process optimization
+- User research methodologies
+- Cross-functional collaboration
+- Workflow efficiency improvements
+- Tool and framework recommendations
+
+What specific workflow challenge are you facing? I'll provide practical, actionable advice to help you streamline your UX processes.""",
+    
+    "thinking": """I'm your UX Strategic Thinker! I specialize in user psychology, strategic planning, and aligning UX with business goals.
+
+**Key Areas I Help With:**
+- User psychology and behavior analysis
+- Strategic UX planning
+- Business goal alignment
+- User research strategy
+- Design thinking methodologies
+
+How can I help you develop a deeper understanding of your users and create more strategic UX approaches?""",
+    
+    "writing": """I'm your UX Writing Expert! I help create clear, effective content and microcopy that guides users and improves their experience.
+
+**Key Areas I Help With:**
+- Microcopy and interface text
+- Content strategy
+- User guidance and instructions
+- Error messages and feedback
+- Voice and tone development
+
+What writing challenge can I help you with? I'll provide specific, actionable advice for creating user-centered content.""",
+    
+    "triage": """I'm here to help with your UX questions! I can provide direct, actionable advice on a wide range of UX topics.
+
+**I can help you with:**
+- **Job Story Writing**: Use our iterative refinement process to create focused user stories
+- **UX Strategy Alignment**: Connect UX activities with business goals
+- **UX Strategy Roadmaps**: Plan and prioritize UX initiatives
+- **User Research Methods**: Choose the right research approach for your context
+- **Workflow Optimization**: Improve your design processes
+- **Content Strategy**: Create effective user-centered content
+
+**Job Story Framework:**
+When [situation], I want to [motivation], so I can [outcome].
+
+Start broad and generic, then add details little-by-little to create focused, specific job stories.
+
+What specific UX challenge can I help you with today?"""
 }
 
 def check_ollama_available() -> bool:
@@ -398,23 +443,119 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         print(f"❌ Traceback: {traceback.format_exc()}")
         return f"Ollama service error: {str(e)}"
 
+def get_smart_fallback_response(message: str, agent_type: str) -> str:
+    """Generate intelligent fallback response based on user question"""
+    message_lower = message.lower()
+    
+    # Job story related questions
+    if any(keyword in message_lower for keyword in ["job story", "user story", "story writing"]):
+        return """**Job Story Writing Guide**
+
+I'll help you create effective job stories using our iterative refinement process.
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Development Process:**
+1. **Start Broad**: "When I need help, I want to find information, so I can solve my problem."
+2. **Add Context**: "When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+3. **Get Specific**: "When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**Key Benefits:**
+- Focuses on user context and motivation
+- More flexible than user stories
+- Helps identify real user needs
+- Guides design decisions
+
+What specific user situation are you trying to capture in a job story?"""
+
+    # UX strategy alignment questions
+    elif any(keyword in message_lower for keyword in ["align", "strategy", "business goals", "roadmap"]):
+        return """**UX Strategy Alignment Framework**
+
+Here's how to connect your UX work with business objectives:
+
+**1. Identify Business Objectives**
+- Revenue growth
+- User acquisition
+- Customer retention
+- Operational efficiency
+- Market expansion
+
+**2. Map UX Metrics to Business Goals**
+- User satisfaction → Customer retention
+- Task completion → Operational efficiency
+- User engagement → Revenue growth
+- Conversion rates → User acquisition
+
+**3. Create Alignment Framework**
+- Define UX KPIs that impact business metrics
+- Establish regular review processes
+- Set up cross-functional collaboration
+- Measure and iterate
+
+**4. UX Strategy Roadmap Creation**
+- Current state assessment
+- Stakeholder alignment
+- Define UX vision
+- Prioritize initiatives by impact/feasibility
+- Timeline and resource planning
+
+What specific aspect of UX strategy alignment would you like to focus on?"""
+
+    # User research questions
+    elif any(keyword in message_lower for keyword in ["user research", "research methods", "b2b research"]):
+        return """**User Research Methods for B2B Contexts**
+
+**Effective B2B Research Approaches:**
+
+**1. Stakeholder Interviews**
+- Interview decision-makers and end-users
+- Understand business processes and pain points
+- Map user journeys across different roles
+
+**2. Contextual Inquiry**
+- Observe users in their work environment
+- Understand real-world constraints and workflows
+- Identify unmet needs and opportunities
+
+**3. Surveys and Analytics**
+- Quantitative data on user behavior
+- Usage patterns and feature adoption
+- Satisfaction and NPS scores
+
+**4. Usability Testing**
+- Task-based testing with realistic scenarios
+- A/B testing for feature improvements
+- Accessibility testing
+
+**5. Competitive Analysis**
+- Study similar B2B products
+- Identify best practices and gaps
+- Benchmark user experience
+
+What specific research challenge are you facing?"""
+
+    # Default to enhanced triage response
+    else:
+        return MOCK_RESPONSES.get(agent_type, MOCK_RESPONSES["triage"])
+
 def get_llm_response(message: str, agent_type: str) -> str:
     """Generate response using Ollama or fallback to mock"""
     try:
         # Try to get response from Ollama using asyncio.run()
         response = asyncio.run(get_ollama_response(message, agent_type))
         
-        # If response contains error, fallback to mock
+        # If response contains error, fallback to smart mock
         if "error" in response.lower() and ("ollama" in response.lower() or "api" in response.lower()):
-            print(f"🔄 Falling back to mock response due to error: {response[:100]}")
-            return MOCK_RESPONSES.get(agent_type, MOCK_RESPONSES["triage"])
+            print(f"🔄 Falling back to smart mock response due to error: {response[:100]}")
+            return get_smart_fallback_response(message, agent_type)
         
         print(f"✅ Using Ollama response: {response[:100]}...")
         return response
         
     except Exception as e:
         print(f"❌ Error getting LLM response: {e}")
-        return MOCK_RESPONSES.get(agent_type, MOCK_RESPONSES["triage"])
+        return get_smart_fallback_response(message, agent_type)
 
 # Check Ollama availability on startup
 ollama_available = False
@@ -546,14 +687,14 @@ async def chat_with_ux_agent(request: UXAgentRequest):
     # Generate response using LLM
     if ollama_available:
         response = get_ollama_response_sync(request.message, request.agent_type, conversation_id)
-        # If response contains error, fallback to mock
+        # If response contains error, fallback to smart mock
         if "error" in response.lower() and ("ollama" in response.lower() or "api" in response.lower()):
-            print(f"🔄 Falling back to mock response due to error: {response[:100]}")
-            response = MOCK_RESPONSES.get(request.agent_type, MOCK_RESPONSES["triage"])
+            print(f"🔄 Falling back to smart mock response due to error: {response[:100]}")
+            response = get_smart_fallback_response(request.message, request.agent_type)
         else:
             print(f"✅ Using Ollama response: {response[:100]}...")
     else:
-        response = MOCK_RESPONSES.get(request.agent_type, MOCK_RESPONSES["triage"])
+        response = get_smart_fallback_response(request.message, request.agent_type)
     
     # Add assistant response to history
     add_message_to_history(conversation_id, "assistant", response)
