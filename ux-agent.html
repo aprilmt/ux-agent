@@ -183,10 +183,15 @@
             text-align: left;
             margin-bottom: 20px;
             display: none !important;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease-in-out;
         }
         
         .response-area.show {
             display: block !important;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .response-message {
@@ -195,6 +200,16 @@
             align-items: flex-start;
             gap: 12px;
             width: 100%;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: messageSlideIn 0.4s ease-out forwards;
+        }
+        
+        @keyframes messageSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .ai-message {
@@ -270,6 +285,46 @@
             text-align: left;
             display: inline-block;
             word-wrap: break-word;
+        }
+        
+        .message-bubble h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0.5em 0;
+            color: #333;
+        }
+        
+        .message-bubble h2 {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 0.4em 0;
+            color: #333;
+        }
+        
+        .message-bubble h3 {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0.3em 0;
+            color: #333;
+        }
+        
+        .message-bubble strong {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .message-bubble em {
+            font-style: italic;
+        }
+        
+        .message-bubble li {
+            margin: 0.2em 0;
+            padding-left: 1em;
+        }
+        
+        .message-bubble p {
+            margin: 0.5em 0;
+            line-height: 1.5;
         }
         
         /* Recommended Prompts */
@@ -632,6 +687,35 @@
             }
         }
 
+        // Function to remove markdown formatting and convert to proper HTML
+        function formatResponseText(text) {
+            // Remove markdown bold formatting and convert to proper headings
+            let formatted = text
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Bold text
+                .replace(/\*([^*]+)\*/g, '<em>$1</em>') // Italic text
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>') // H3 headings
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>') // H2 headings
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1 headings
+                .replace(/^\- (.*$)/gim, '<li>$1</li>') // List items
+                .replace(/\n\n/g, '</p><p>') // Paragraph breaks
+                .replace(/\n/g, '<br>'); // Line breaks
+            
+            // Handle specific patterns from AI responses
+            formatted = formatted
+                .replace(/<strong>Template:<\/strong>/g, '<h3>Template:</h3>')
+                .replace(/<strong>Job Story Development Process:<\/strong>/g, '<h2>Job Story Development Process:</h2>')
+                .replace(/<strong>1\. Broad\/Generic Version:<\/strong>/g, '<h3>1. Broad/Generic Version:</h3>')
+                .replace(/<strong>2\. More Specific Version:<\/strong>/g, '<h3>2. More Specific Version:</h3>')
+                .replace(/<strong>3\. Focused\/Final Version:<\/strong>/g, '<h3>3. Focused/Final Version:</h3>');
+            
+            // Wrap in paragraph tags if not already wrapped
+            if (!formatted.startsWith('<')) {
+                formatted = '<p>' + formatted + '</p>';
+            }
+            
+            return formatted;
+        }
+
         // Generate recommended prompts based on response and agent type
         function generateRecommendedPrompts(response, agentType) {
             const recommendations = [];
@@ -741,7 +825,7 @@
                                         <span class="ai-badge">AI</span>
                                         <span class="message-time">${time}</span>
                                     </div>
-                                    <div class="message-bubble">${msg.content.replace(/\n/g, '<br>')}</div>
+                                    <div class="message-bubble">${formatResponseText(msg.content)}</div>
                                 </div>
                             `;
                         }
@@ -749,8 +833,8 @@
                         responseArea.appendChild(messageDiv);
                     });
                     
-                    // Scroll to bottom
-                    responseArea.scrollTop = responseArea.scrollHeight;
+                    // Scroll to top
+                    responseArea.scrollTop = 0;
                 })
                 .catch(error => {
                     console.error('Error loading chat history:', error);
@@ -852,7 +936,7 @@
                             <span class="ai-badge">AI</span>
                             <span class="message-time">${responseTime}</span>
                         </div>
-                        <div class="message-bubble">${data.response.replace(/\n/g, '<br>')}</div>
+                        <div class="message-bubble">${formatResponseText(data.response)}</div>
                     </div>
                 `;
                 responseArea.appendChild(aiResponse);
@@ -871,8 +955,10 @@
                 // Add recommended prompts based on the response
                 addRecommendedPrompts(data.response, data.agent_used);
                 
-                // Scroll to bottom
-                responseArea.scrollTop = responseArea.scrollHeight;
+                // Scroll to top of the new response
+                setTimeout(() => {
+                    responseArea.scrollTop = 0;
+                }, 100);
             })
             .catch(error => {
                 console.error('Error:', error);

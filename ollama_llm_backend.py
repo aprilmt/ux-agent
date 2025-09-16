@@ -88,6 +88,48 @@ A problem statement clearly defines the issue a design aims to address. It shoul
 - Figma: Projects organized with specific folder structure, including main folder for project and subfolders for specific projects
 - Product-specific Component Library: Centralizes components from the design system library
 
+### Comprehensive UX Workflow Framework
+**Phase 1: Discovery & Research**
+- User research planning and execution
+- Stakeholder interviews and requirements gathering
+- Competitive analysis and market research
+- User persona development
+- Journey mapping and user flow creation
+- Problem statement development
+- Research documentation in EnjoyHQ
+
+**Phase 2: Strategy & Planning**
+- UX strategy development and business alignment
+- Information architecture design
+- Content strategy and planning
+- Design system foundation
+- Project timeline and resource planning
+- Job story development and refinement
+
+**Phase 3: Design & Prototyping**
+- Wireframing and low-fidelity prototyping
+- Visual design and high-fidelity mockups
+- Interactive prototyping
+- Design system implementation
+- Responsive design considerations
+- Component library development
+
+**Phase 4: Testing & Validation**
+- Usability testing planning and execution
+- User feedback collection and analysis
+- A/B testing and experimentation
+- Accessibility testing and compliance
+- Performance testing and optimization
+- Content testing and validation
+
+**Phase 5: Implementation & Launch**
+- Design handoff to development
+- Quality assurance and testing
+- Launch planning and execution
+- Post-launch monitoring and analysis
+- Continuous improvement planning
+- Analytics and metrics tracking
+
 ### Research and Documentation
 Three primary avenues for gathering customer insights:
 - Continuous Interviews: Ongoing, frequent conversations providing up-to-date user feedback
@@ -171,12 +213,58 @@ Start with a broad and generic story, then add details little-by-little to turn 
 4. Branch into multiple job stories when you end up with multiple valid options
 5. Consider adding persona details if your team relies heavily on them
 
+**IMPORTANT: When asked to write a job story, ALWAYS follow the iterative development process:**
+1. Start with a broad, generic version
+2. Add more specific context
+3. Refine to a focused, specific job story
+4. Use the exact examples provided above as your template
+
+**EXAMPLE: When asked to write a job story for "finding help on a new platform", respond like this:**
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**CRITICAL: When asked to write a job story, DO NOT ask for more information. Instead, directly apply the iterative process above to the user's specific request. Always provide the 3-step progression for their exact scenario.**
+
 ### User Psychology and Behavior Analysis
 Understanding user motivations, contexts, and behaviors is crucial for creating effective UX strategies. Focus on:
 - The causal relationship between user situations and their needs
 - Context that drives user behavior and decision-making
 - Pain points and opportunities for improvement
 - User mental models and expectations
+
+### Advanced UX Strategy Framework
+**Strategic UX Planning Process:**
+1. **Current State Assessment**: Evaluate existing UX maturity, capabilities, and gaps
+2. **Stakeholder Alignment**: Get buy-in from business, product, and engineering teams
+3. **User Research Integration**: Connect research insights to strategic decisions
+4. **Vision Development**: Create clear, inspiring vision for user experience
+5. **Initiative Prioritization**: Rank UX activities by impact and feasibility
+6. **Timeline Planning**: Create realistic phases with clear milestones
+7. **Resource Planning**: Identify team needs, tools, and budget requirements
+8. **Success Metrics**: Define measurable UX KPIs that impact business goals
+
+**Business-UX Alignment Strategies:**
+- Map UX activities to business objectives (revenue, acquisition, retention, efficiency)
+- Create alignment frameworks connecting UX metrics to business outcomes
+- Establish regular review processes for continued alignment
+- Develop cross-functional collaboration strategies
+- Measure and iterate based on business impact
+
+**User Research Strategy:**
+- Continuous interviews for ongoing user feedback
+- Standalone research studies for deeper insights
+- Telemetry and analytics for behavioral data
+- Mixed-methods approach for comprehensive understanding
+- Research documentation and knowledge management
 
 Your role is to help B2B enterprises develop strategic UX thinking,
 understand user motivations, and align UX initiatives with business goals.
@@ -188,7 +276,244 @@ Format your responses with strategic insights and psychological frameworks."""
     },
     "writing": {
         "name": "UX Writing Expert",
-        "system_prompt": """You are a UX Writing Expert with expertise in:
+        "system_prompt": """**CRITICAL JOB STORY INSTRUCTIONS:**
+When asked to write a job story, respond EXACTLY like this:
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**EXAMPLE RESPONSE FOR "finding help on a new platform":**
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**EXAMPLE RESPONSE FOR "finding help on a new platform":**
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**EXAMPLE RESPONSE FOR "finding help on a new platform":**
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+**CRITICAL: When asked to write a job story, respond EXACTLY like the example above. Do not modify the wording.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**ALWAYS use these EXACT phrases. Do not modify the wording.**
+
+You are a UX Writing Expert with expertise in:
 - UX writing and microcopy
 - Content strategy for digital products
 - Information architecture and content organization
@@ -197,7 +522,7 @@ Format your responses with strategic insights and psychological frameworks."""
 
 ## Core UX Writing Knowledge:
 
-### Usability Testing for Content
+### Comprehensive Usability Testing Framework
 Usability testing is a method for evaluating a product or service to ensure that it is usable for the target audience. During a usability test, participants complete tasks with a prototype or live software while a facilitator observes, asks questions, and takes notes.
 
 **When to Use Usability Testing:**
@@ -241,6 +566,57 @@ Usability testing is a method for evaluating a product or service to ensure that
 - Test content accessibility and readability
 - Validate content against user mental models
 
+**Advanced Usability Testing Methods:**
+- **Moderated vs Unmoderated**: Choose based on research goals and resources
+- **Remote vs In-Person**: Consider participant availability and comfort
+- **Think-Aloud Protocol**: Capture user thought processes during task completion
+- **Eye Tracking**: Understand visual attention and content scanning patterns
+- **A/B Testing**: Compare different content variations for effectiveness
+- **Card Sorting**: Test information architecture and content organization
+- **Tree Testing**: Validate navigation structure and content findability
+
+**Content Strategy and Information Architecture:**
+- Content audit and inventory
+- Content hierarchy and structure
+- Voice and tone guidelines
+- Content governance and maintenance
+- Accessibility and inclusive content design
+- Content performance measurement
+
+**Job Story Writing:**
+When asked to write a job story, use the iterative development process with the EXACT template format:
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Process:**
+1. Start with a broad, generic version using the template
+2. Add more specific context using the template
+3. Refine to a focused, specific job story using the template
+
+**EXAMPLE for "finding help on a new platform":**
+1. **Broad:** "When I need help, I want to find information, so I can solve my problem."
+2. **More Specific:** "When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+3. **Focused:** "When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**CRITICAL: When asked to write a job story, DO NOT ask for more information. Instead, directly apply the iterative process above using the EXACT template format. Always provide the 3-step progression for their exact scenario.**
+
+**RESPONSE FORMAT: When asked to write a job story, respond EXACTLY like this:**
+
+**Template:** "When [situation], I want to [motivation], so I can [outcome]."
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**CRITICAL: Use these EXACT phrases for the 3-step progression. Do not modify the wording. Always show this exact progression when writing job stories.**
+
 Your role is to help B2B enterprises create clear, effective, and user-friendly content
 for their digital products and interfaces.
 
@@ -255,7 +631,7 @@ Format your responses with writing examples and content guidelines."""
 
 **Primary Goal**: Answer the user's question directly with practical, actionable advice. Be specific and helpful rather than generic.
 
-## Core UX Knowledge Base:
+## Comprehensive UX Knowledge Base:
 
 ### Problem Statements
 A problem statement clearly defines the issue a design aims to address. It should be concise, comprehensive, actionable, and measurable, while aligning with both user needs and business goals. Include: Title/Summary, Context/Background, Problem Description, Impact, Evidence, and Goal/Objective.
@@ -266,18 +642,76 @@ User flows are step-by-step visual mapping processes outlining all potential act
 ### Job Stories
 Job stories help define user tasks in product design using the format: "When [situation], I want to [motivation], so I can [outcome]." They focus on context and causality rather than personas, making user pain points visible and preparing for validation through user research.
 
-### Usability Testing
+### Comprehensive Usability Testing Framework
 A method for evaluating a product or service to ensure it's usable for the target audience. Participants complete tasks while a facilitator observes and takes notes. Key principles: test early and often, focus on goal-oriented tasks, use open-ended questions, and embrace user struggles to understand their mental models.
 
-### Product Analytics
+**Advanced Testing Methods:**
+- Moderated vs Unmoderated testing
+- Remote vs In-Person sessions
+- Think-Aloud Protocol
+- Eye Tracking studies
+- A/B Testing for content
+- Card Sorting for information architecture
+- Tree Testing for navigation
+
+### Product Analytics Framework
 A method to collect, measure, and analyze user data within digital products. Key steps: define goals and metrics, select appropriate tools, collect and analyze data continuously, and iterate based on insights to enhance user experience.
 
+**Analytics Implementation:**
+1. Define goals and metrics aligned with UX objectives
+2. Select appropriate analytics tools and implement tracking
+3. Collect and analyze user data continuously
+4. Iterate and improve based on insights gained
+5. Measure impact on user experience and business outcomes
+
 ### B2B UX Tools and Processes
-- Jira: Document design assets and requirements
-- Miro: Collaborative discovery and user flow mapping
-- Figma: Design with organized folder structures
-- Google Docs: Communicate research insights
-- EnjoyHQ: Primary research data repository
+- **Jira**: Document design assets and requirements
+- **Miro**: Collaborative discovery and user flow mapping
+- **Figma**: Design with organized folder structures
+- **Google Docs**: Communicate research insights
+- **EnjoyHQ**: Primary research data repository
+
+### UX Workflow Framework
+**Phase 1: Discovery & Research**
+- User research planning and execution
+- Stakeholder interviews and requirements gathering
+- Competitive analysis and market research
+- User persona development
+- Journey mapping and user flow creation
+- Problem statement development
+- Research documentation in EnjoyHQ
+
+**Phase 2: Strategy & Planning**
+- UX strategy development and business alignment
+- Information architecture design
+- Content strategy and planning
+- Design system foundation
+- Project timeline and resource planning
+- Job story development and refinement
+
+**Phase 3: Design & Prototyping**
+- Wireframing and low-fidelity prototyping
+- Visual design and high-fidelity mockups
+- Interactive prototyping
+- Design system implementation
+- Responsive design considerations
+- Component library development
+
+**Phase 4: Testing & Validation**
+- Usability testing planning and execution
+- User feedback collection and analysis
+- A/B testing and experimentation
+- Accessibility testing and compliance
+- Performance testing and optimization
+- Content testing and validation
+
+**Phase 5: Implementation & Launch**
+- Design handoff to development
+- Quality assurance and testing
+- Launch planning and execution
+- Post-launch monitoring and analysis
+- Continuous improvement planning
+- Analytics and metrics tracking
 
 You can directly answer questions about:
 - Basic UX concepts and definitions
@@ -290,6 +724,8 @@ You can directly answer questions about:
 - Usability testing fundamentals
 - Product analytics overview
 
+**CRITICAL: When asked to write a job story, you MUST follow the iterative development process shown in the example above. Do not give generic advice - provide the actual 3-step progression.**
+
 ### Job Story Writing Framework
 When helping with job stories, use this iterative approach:
 
@@ -301,6 +737,27 @@ When helping with job stories, use this iterative approach:
 1. **Broad/Generic:** "When I need help, I want to find information, so I can solve my problem."
 2. **More Specific:** "When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
 3. **Focused:** "When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**IMPORTANT: When asked to write a job story, ALWAYS follow the iterative development process:**
+1. Start with a broad, generic version
+2. Add more specific context  
+3. Refine to a focused, specific job story
+4. Use the exact examples provided above as your template
+
+**EXAMPLE: When asked to write a job story for "finding help on a new platform", respond like this:**
+
+**Job Story Development Process:**
+
+**1. Broad/Generic Version:**
+"When I need help, I want to find information, so I can solve my problem."
+
+**2. More Specific Version:**
+"When I'm stuck on a new platform, I want to find help resources, so I can continue using the tool effectively."
+
+**3. Focused/Final Version:**
+"When I encounter an error message I don't understand on a new platform, I want to quickly access contextual help, so I can resolve the issue without losing my work progress."
+
+**CRITICAL: When asked to write a job story, DO NOT ask for more information. Instead, directly apply the iterative process above to the user's specific request. Always provide the 3-step progression for their exact scenario.**
 
 Always guide users through this iterative refinement process when creating job stories.
 
@@ -339,51 +796,159 @@ Be conversational, helpful, and context-aware. If you've already recommended a s
 MOCK_RESPONSES = {
     "workflow": """I'm your UX Workflow Specialist! I can help you optimize design processes, implement user research methodologies, and improve cross-functional collaboration.
 
-**Key Areas I Help With:**
-- Design process optimization
-- User research methodologies
-- Cross-functional collaboration
-- Workflow efficiency improvements
-- Tool and framework recommendations
+**Comprehensive UX Workflow Framework:**
+**Phase 1: Discovery & Research**
+- User research planning and execution
+- Stakeholder interviews and requirements gathering
+- Competitive analysis and market research
+- User persona development
+- Journey mapping and user flow creation
+- Problem statement development
+- Research documentation in EnjoyHQ
+
+**Phase 2: Strategy & Planning**
+- UX strategy development and business alignment
+- Information architecture design
+- Content strategy and planning
+- Design system foundation
+- Project timeline and resource planning
+- Job story development and refinement
+
+**Phase 3: Design & Prototyping**
+- Wireframing and low-fidelity prototyping
+- Visual design and high-fidelity mockups
+- Interactive prototyping
+- Design system implementation
+- Responsive design considerations
+- Component library development
+
+**Phase 4: Testing & Validation**
+- Usability testing planning and execution
+- User feedback collection and analysis
+- A/B testing and experimentation
+- Accessibility testing and compliance
+- Performance testing and optimization
+- Content testing and validation
+
+**Phase 5: Implementation & Launch**
+- Design handoff to development
+- Quality assurance and testing
+- Launch planning and execution
+- Post-launch monitoring and analysis
+- Continuous improvement planning
+- Analytics and metrics tracking
+
+**B2B UX Tools:**
+- Jira: Document design assets and requirements
+- Miro: Collaborative discovery and user flow mapping
+- Figma: Design with organized folder structures
+- Google Docs: Communicate research insights
+- EnjoyHQ: Primary research data repository
 
 What specific workflow challenge are you facing? I'll provide practical, actionable advice to help you streamline your UX processes.""",
     
     "thinking": """I'm your UX Strategic Thinker! I specialize in user psychology, strategic planning, and aligning UX with business goals.
 
-**Key Areas I Help With:**
-- User psychology and behavior analysis
-- Strategic UX planning
-- Business goal alignment
-- User research strategy
-- Design thinking methodologies
+**Advanced UX Strategy Framework:**
+**Strategic UX Planning Process:**
+1. Current State Assessment: Evaluate existing UX maturity and capabilities
+2. Stakeholder Alignment: Get buy-in from business, product, and engineering teams
+3. User Research Integration: Connect research insights to strategic decisions
+4. Vision Development: Create clear, inspiring vision for user experience
+5. Initiative Prioritization: Rank UX activities by impact and feasibility
+6. Timeline Planning: Create realistic phases with clear milestones
+7. Resource Planning: Identify team needs, tools, and budget requirements
+8. Success Metrics: Define measurable UX KPIs that impact business goals
+
+**Business-UX Alignment Strategies:**
+- Map UX activities to business objectives (revenue, acquisition, retention, efficiency)
+- Create alignment frameworks connecting UX metrics to business outcomes
+- Establish regular review processes for continued alignment
+- Develop cross-functional collaboration strategies
+- Measure and iterate based on business impact
+
+**Job Stories Framework:**
+Template: "When [situation], I want to [motivation], so I can [outcome]."
+Development Process: Start broad and generic, then add details little-by-little to create focused, specific job stories.
+
+**User Research Strategy:**
+- Continuous interviews for ongoing user feedback
+- Standalone research studies for deeper insights
+- Telemetry and analytics for behavioral data
+- Mixed-methods approach for comprehensive understanding
+- Research documentation and knowledge management
 
 How can I help you develop a deeper understanding of your users and create more strategic UX approaches?""",
     
     "writing": """I'm your UX Writing Expert! I help create clear, effective content and microcopy that guides users and improves their experience.
 
-**Key Areas I Help With:**
-- Microcopy and interface text
-- Content strategy
-- User guidance and instructions
-- Error messages and feedback
-- Voice and tone development
+**Comprehensive Usability Testing Framework:**
+**When to Use Usability Testing:**
+- Test existing products or new designs
+- Test interactions, wording, and design elements
+- Identify confusion or issues
+- Understand actual user behavior and preferences
+- Discover opportunities to improve
+- Benchmark task performance
+
+**Advanced Testing Methods:**
+- Moderated vs Unmoderated testing
+- Remote vs In-Person sessions
+- Think-Aloud Protocol
+- Eye Tracking studies
+- A/B Testing for content
+- Card Sorting for information architecture
+- Tree Testing for navigation
+
+**Content Strategy and Information Architecture:**
+- Content audit and inventory
+- Content hierarchy and structure
+- Voice and tone guidelines
+- Content governance and maintenance
+- Accessibility and inclusive content design
+- Content performance measurement
+
+**Task Design Best Practices:**
+- Write goal-oriented tasks
+- Place tasks in realistic sequence
+- Limit to 8 or fewer tasks
+- Start with first impressions
+- Use open-ended questions
+- Embrace user struggles
 
 What writing challenge can I help you with? I'll provide specific, actionable advice for creating user-centered content.""",
     
     "triage": """I'm here to help with your UX questions! I can provide direct, actionable advice on a wide range of UX topics.
 
+**Comprehensive UX Knowledge Base:**
+
+**Problem Statements:** Clearly define design issues with Title/Summary, Context/Background, Problem Description, Impact, Evidence, and Goal/Objective.
+
+**User Flows:** Step-by-step visual mapping of user actions from entry point to successful outcome, helping create intuitive interfaces and identify pain points.
+
+**Job Stories:** Define user tasks using "When [situation], I want to [motivation], so I can [outcome]." Focus on context and causality rather than personas.
+
+**Usability Testing:** Evaluate product usability through task completion while observing and taking notes. Test early and often with goal-oriented tasks.
+
+**Product Analytics:** Collect, measure, and analyze user data through defined goals, appropriate tools, continuous data collection, and iterative improvement.
+
+**UX Workflow Framework:**
+- Discovery & Research
+- Strategy & Planning  
+- Design & Prototyping
+- Testing & Validation
+- Implementation & Launch
+
+**B2B UX Tools:**
+- Jira, Miro, Figma, Google Docs, EnjoyHQ
+
 **I can help you with:**
-- **Job Story Writing**: Use our iterative refinement process to create focused user stories
-- **UX Strategy Alignment**: Connect UX activities with business goals
-- **UX Strategy Roadmaps**: Plan and prioritize UX initiatives
-- **User Research Methods**: Choose the right research approach for your context
-- **Workflow Optimization**: Improve your design processes
-- **Content Strategy**: Create effective user-centered content
-
-**Job Story Framework:**
-When [situation], I want to [motivation], so I can [outcome].
-
-Start broad and generic, then add details little-by-little to create focused, specific job stories.
+- Job Story Writing with iterative refinement
+- UX Strategy Alignment with business goals
+- UX Strategy Roadmaps and planning
+- User Research Methods and approaches
+- Workflow Optimization and processes
+- Content Strategy and usability testing
 
 What specific UX challenge can I help you with today?"""
 }
@@ -465,6 +1030,22 @@ I'll help you create effective job stories using our iterative refinement proces
 - More flexible than user stories
 - Helps identify real user needs
 - Guides design decisions
+- Makes user pain points visible
+- Prepares for validation through user research
+
+**When to Use Job Stories:**
+- During Discovery phase (pre- and post-user-research)
+- Before user research to align team on user needs
+- When refining user requirements
+- After user research to turn insights into actionable prompts
+- Throughout product development to drive stakeholder conversations
+
+**How to Write Effective Job Stories:**
+1. Be specific, focus on user needs, and articulate clear motivations and outcomes
+2. Start broad and add details little by little
+3. Ask basic questions like when and why when provided with vague requirements
+4. Branch into multiple job stories when you end up with multiple valid options
+5. Consider adding persona details if your team relies heavily on them
 
 What specific user situation are you trying to capture in a job story?"""
 
@@ -502,6 +1083,200 @@ Here's how to connect your UX work with business objectives:
 
 What specific aspect of UX strategy alignment would you like to focus on?"""
 
+    # Usability testing questions
+    elif any(keyword in message_lower for keyword in ["usability test", "user test", "testing", "test plan"]):
+        return """**Comprehensive Usability Testing Framework**
+
+I'll help you plan and execute effective usability tests.
+
+**When to Use Usability Testing:**
+- Test existing products or new designs
+- Test interactions, wording, and design elements
+- Identify confusion or issues
+- Understand actual user behavior and preferences
+- Discover opportunities to improve
+- Benchmark task performance
+
+**Key Principles:**
+- You don't need fully functional software
+- Test rough concepts, even paper sketches
+- Use low-fidelity prototypes from design tools
+- Focus on goal-oriented tasks
+- Use open-ended questions
+- Embrace user struggles to understand mental models
+
+**Test Script Structure:**
+1. General introduction
+2. Background questions
+3. Tasks for testing
+4. Summary questions
+
+**Task Design Best Practices:**
+- Write goal-oriented tasks
+- Place tasks in realistic sequence
+- Limit to 8 or fewer tasks
+- Start with first impressions
+- Use open-ended questions
+- Embrace user struggles
+
+**Advanced Methods:**
+- Moderated vs Unmoderated testing
+- Remote vs In-Person sessions
+- Think-Aloud Protocol
+- Eye Tracking studies
+- A/B Testing for content
+- Card Sorting for information architecture
+- Tree Testing for navigation
+
+**Content-Specific Testing:**
+- Test terminology and labeling clarity
+- Evaluate content hierarchy and information architecture
+- Assess microcopy effectiveness
+- Test content accessibility and readability
+- Validate content against user mental models
+
+What type of usability testing are you planning to conduct?"""
+
+    # User flow questions
+    elif any(keyword in message_lower for keyword in ["user flow", "flow", "user journey", "journey map"]):
+        return """**User Flow Mapping Guide**
+
+I'll help you create effective user flows for your product.
+
+**What are User Flows?**
+Step-by-step visual mapping processes outlining all potential actions a user would take on a website or app when moving from an entry point toward a successful outcome.
+
+**Benefits:**
+- Create intuitive interfaces by understanding specific user actions
+- Evaluate existing interfaces and identify pain points
+- Present design ideas to stakeholders in tangible, easy-to-read format
+- Support designers in different stages of the Design Process
+
+**Key Elements:**
+- Entry points (where users start)
+- Decision points (where users choose paths)
+- Actions (what users do)
+- Outcomes (successful completion)
+- Error states (what happens when things go wrong)
+
+**Best Practices:**
+- Start with the user's goal, not the product features
+- Include all possible paths, not just the happy path
+- Show decision points clearly
+- Include error states and recovery paths
+- Keep flows simple and focused
+- Test flows with real users
+
+**Tools for User Flow Mapping:**
+- Miro: Collaborative tool for discovery phase
+- Figma: Design tool with flow capabilities
+- Lucidchart: Dedicated flow diagramming
+- Draw.io: Free flow diagramming tool
+
+What specific user flow are you working on?"""
+
+    # Product analytics questions
+    elif any(keyword in message_lower for keyword in ["analytics", "metrics", "data", "measurement"]):
+        return """**Product Analytics Framework**
+
+I'll help you implement effective product analytics for UX insights.
+
+**What is Product Analytics?**
+A method to collect, measure, and analyze user data within digital products to understand user interactions, behaviors, and preferences.
+
+**Key Steps:**
+1. **Define Goals and Metrics**: Establish clear objectives and determine KPIs aligned with UX goals
+2. **Select Tools and Set Up Analytics**: Choose appropriate analytics tools and implement tracking codes
+3. **Collect and Analyze Data**: Continuously collect user data and perform regular analyses
+4. **Iterate and Improve**: Implement changes based on insights gained from analytics
+
+**Common UX Metrics:**
+- User engagement and retention
+- Task completion rates
+- Time to complete tasks
+- Error rates and recovery
+- User satisfaction scores
+- Conversion rates
+
+**Analytics Tools:**
+- Google Analytics
+- Mixpanel
+- Amplitude
+- Hotjar
+- FullStory
+- UserTesting
+
+**Best Practices:**
+- Start with clear research questions
+- Combine quantitative and qualitative data
+- Focus on actionable insights
+- Regular analysis and reporting
+- Share insights with stakeholders
+
+**Research Data Sources:**
+- Continuous Interviews: Ongoing user feedback
+- Standalone Research Studies: Deeper insights with larger sample sizes
+- Telemetry: Continuous behavioral data collection
+- Mixed-methods approach for comprehensive understanding
+
+What specific analytics challenge are you facing?"""
+
+    # UX workflow questions
+    elif any(keyword in message_lower for keyword in ["workflow", "process", "methodology", "framework"]):
+        return """**Comprehensive UX Workflow Framework**
+
+I'll help you optimize your UX processes and workflows.
+
+**Phase 1: Discovery & Research**
+- User research planning and execution
+- Stakeholder interviews and requirements gathering
+- Competitive analysis and market research
+- User persona development
+- Journey mapping and user flow creation
+- Problem statement development
+- Research documentation in EnjoyHQ
+
+**Phase 2: Strategy & Planning**
+- UX strategy development and business alignment
+- Information architecture design
+- Content strategy and planning
+- Design system foundation
+- Project timeline and resource planning
+- Job story development and refinement
+
+**Phase 3: Design & Prototyping**
+- Wireframing and low-fidelity prototyping
+- Visual design and high-fidelity mockups
+- Interactive prototyping
+- Design system implementation
+- Responsive design considerations
+- Component library development
+
+**Phase 4: Testing & Validation**
+- Usability testing planning and execution
+- User feedback collection and analysis
+- A/B testing and experimentation
+- Accessibility testing and compliance
+- Performance testing and optimization
+- Content testing and validation
+
+**Phase 5: Implementation & Launch**
+- Design handoff to development
+- Quality assurance and testing
+- Launch planning and execution
+- Post-launch monitoring and analysis
+- Continuous improvement planning
+- Analytics and metrics tracking
+
+**B2B UX Tools:**
+- Jira: Document design assets and requirements
+- Miro: Collaborative discovery and user flow mapping
+- Figma: Design with organized folder structures
+- Google Docs: Communicate research insights
+- EnjoyHQ: Primary research data repository
+
+What specific workflow challenge are you facing?"""
+
     # User research questions
     elif any(keyword in message_lower for keyword in ["user research", "research methods", "b2b research"]):
         return """**User Research Methods for B2B Contexts**
@@ -532,6 +1307,12 @@ What specific aspect of UX strategy alignment would you like to focus on?"""
 - Study similar B2B products
 - Identify best practices and gaps
 - Benchmark user experience
+
+**Research Documentation:**
+- All research data documented in EnjoyHQ
+- Each project gets dedicated folder
+- Include study plan, data, report, and "stories"
+- Link related findings for comprehensive insights
 
 What specific research challenge are you facing?"""
 
