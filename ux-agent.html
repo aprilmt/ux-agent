@@ -247,6 +247,7 @@
         
         .message-content {
             flex: 1;
+            padding-left: 12px;
         }
         
         .message-header {
@@ -279,7 +280,7 @@
         .message-bubble {
             background: white;
             border-radius: 18px;
-            padding: 12px 16px;
+            padding: 12px 16px 12px 20px;
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             border: 1px solid #e9ecef;
             text-align: left;
@@ -290,24 +291,24 @@
         .message-bubble h1 {
             font-size: 1.5em;
             font-weight: bold;
-            margin: 0.5em 0;
+            margin: 1em 0 0.5em 0;
             color: #333;
         }
-        
+
         .message-bubble h2 {
             font-size: 1.3em;
             font-weight: bold;
-            margin: 0.4em 0;
+            margin: 0.8em 0 0.4em 0;
             color: #333;
         }
-        
+
         .message-bubble h3 {
             font-size: 1.1em;
             font-weight: bold;
-            margin: 0.3em 0;
+            margin: 0.6em 0 0.3em 0;
             color: #333;
         }
-        
+
         .message-bubble strong {
             font-weight: bold;
             color: #333;
@@ -318,7 +319,7 @@
         }
         
         .message-bubble li {
-            margin: 0.2em 0;
+            margin: 0.1em 0;
             padding-left: 1em;
         }
         
@@ -398,6 +399,13 @@
             box-sizing: border-box !important;
             background: white !important;
             border: 1px solid #e9ecef !important;
+            padding: 12px 16px 12px 30px !important;
+            margin: 0 !important;
+        }
+        
+        .ai-message .message-bubble * {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
         }
         
         .loading {
@@ -689,16 +697,17 @@
 
         // Function to remove markdown formatting and convert to proper HTML
         function formatResponseText(text) {
-            // Remove markdown bold formatting and convert to proper headings
+            // First, handle headings before other formatting
             let formatted = text
-                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Bold text
-                .replace(/\*([^*]+)\*/g, '<em>$1</em>') // Italic text
                 .replace(/^### (.*$)/gim, '<h3>$1</h3>') // H3 headings
                 .replace(/^## (.*$)/gim, '<h2>$1</h2>') // H2 headings
                 .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1 headings
-                .replace(/^\- (.*$)/gim, '<li>$1</li>') // List items
-                .replace(/\n\n/g, '</p><p>') // Paragraph breaks
-                .replace(/\n/g, '<br>'); // Line breaks
+                .replace(/^\- (.*$)/gim, '<li>$1</li>'); // List items
+            
+            // Then handle bold and italic formatting
+            formatted = formatted
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Bold text
+                .replace(/\*([^*]+)\*/g, '<em>$1</em>'); // Italic text
             
             // Handle specific patterns from AI responses
             formatted = formatted
@@ -707,6 +716,11 @@
                 .replace(/<strong>1\. Broad\/Generic Version:<\/strong>/g, '<h3>1. Broad/Generic Version:</h3>')
                 .replace(/<strong>2\. More Specific Version:<\/strong>/g, '<h3>2. More Specific Version:</h3>')
                 .replace(/<strong>3\. Focused\/Final Version:<\/strong>/g, '<h3>3. Focused/Final Version:</h3>');
+            
+            // Handle paragraph breaks and line breaks
+            formatted = formatted
+                .replace(/\n\n/g, '</p><p>') // Paragraph breaks
+                .replace(/\n/g, '<br>'); // Line breaks
             
             // Wrap in paragraph tags if not already wrapped
             if (!formatted.startsWith('<')) {
