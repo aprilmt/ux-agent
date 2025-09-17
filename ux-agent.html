@@ -704,7 +704,8 @@
                 .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1 headings
                 .replace(/^\- (.*$)/gim, '<li>$1</li>'); // List items
             
-            // Then handle bold and italic formatting
+            // Handle bold and italic formatting more consistently
+            // Process bold first (double asterisks), then italic (single asterisks)
             formatted = formatted
                 .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Bold text
                 .replace(/\*([^*]+)\*/g, '<em>$1</em>'); // Italic text
@@ -716,6 +717,14 @@
                 .replace(/<strong>1\. Broad\/Generic Version:<\/strong>/g, '<h3>1. Broad/Generic Version:</h3>')
                 .replace(/<strong>2\. More Specific Version:<\/strong>/g, '<h3>2. More Specific Version:</h3>')
                 .replace(/<strong>3\. Focused\/Final Version:<\/strong>/g, '<h3>3. Focused/Final Version:</h3>');
+            
+            // Normalize formatting - ensure consistent bold/italic patterns
+            // Handle cases where text should be consistently formatted
+            formatted = formatted
+                .replace(/(<strong>.*?<\/strong>):/g, '$1:') // Remove extra colons after bold text
+                .replace(/(<em>.*?<\/em>):/g, '$1:') // Remove extra colons after italic text
+                .replace(/\*\*([^*:]+):\*\*/g, '<strong>$1:</strong>') // Fix bold text with colons
+                .replace(/\*([^*:]+):\*/g, '<em>$1:</em>'); // Fix italic text with colons
             
             // Handle paragraph breaks and line breaks
             formatted = formatted
@@ -847,8 +856,8 @@
                         responseArea.appendChild(messageDiv);
                     });
                     
-                    // Scroll to top
-                    responseArea.scrollTop = 0;
+                    // Scroll to bottom to show latest messages
+                    responseArea.scrollTop = responseArea.scrollHeight;
                 })
                 .catch(error => {
                     console.error('Error loading chat history:', error);
@@ -969,9 +978,9 @@
                 // Add recommended prompts based on the response
                 addRecommendedPrompts(data.response, data.agent_used);
                 
-                // Scroll to top of the new response
+                // Scroll to bottom to show the latest response
                 setTimeout(() => {
-                    responseArea.scrollTop = 0;
+                    responseArea.scrollTop = responseArea.scrollHeight;
                 }, 100);
             })
             .catch(error => {
