@@ -39,7 +39,7 @@ async def read_root():
 
 # Ollama configuration
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma:2b-instruct")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud")
 
 # Pydantic models
 class UXAgentRequest(BaseModel):
@@ -988,10 +988,10 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
                 "stream": False,
                 "options": {
                     "temperature": 0.7,
-                    "num_predict": 500  # 使用num_predict而不是max_tokens
+                    "num_predict": 4000  # Increased for cloud model - allows much longer responses
                 }
             },
-            timeout=60.0  # Standard timeout for Mistral model
+            timeout=120.0  # Increased timeout for cloud model with longer responses
         )
         
         if response.status_code == 200:
@@ -1495,7 +1495,8 @@ if __name__ == "__main__":
     print("📚 API Docs: http://localhost:8000/docs")
     print(f"🤖 Using Ollama service with model: {OLLAMA_MODEL}")
     print("💡 Make sure Ollama is running: ollama serve")
-    print("💡 Install model: ollama pull gemma:2b-instruct")
+    print("💡 Cloud model: gpt-oss:120b-cloud (no local installation needed)")
+    print("☁️  Ollama Cloud provides access to larger, more powerful models!")
     
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
