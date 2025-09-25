@@ -38,7 +38,7 @@ async def read_root():
     return FileResponse("ux-agent.html")
 
 # Ollama configuration
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "https://cloud.ollama.com")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud")
 
 # Pydantic models
@@ -980,6 +980,9 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         prompt = build_context_prompt(agent_type, message, conversation_id)
         
         # Call Ollama API
+        print(f"🌐 Calling Ollama Cloud API: {OLLAMA_BASE_URL}/api/generate")
+        print(f"🤖 Using model: {OLLAMA_MODEL}")
+        
         response = requests.post(
             f"{OLLAMA_BASE_URL}/api/generate",
             json={
@@ -993,6 +996,10 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
             },
             timeout=120.0  # Increased timeout for cloud model with longer responses
         )
+        
+        print(f"📡 Response status: {response.status_code}")
+        if response.status_code != 200:
+            print(f"❌ API Error: {response.text}")
         
         if response.status_code == 200:
             result = response.json()
