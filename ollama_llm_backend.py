@@ -38,8 +38,9 @@ async def read_root():
     return FileResponse("ux-agent.html")
 
 # Ollama configuration
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "https://cloud.ollama.com")
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "https://ollama.com")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud")
+OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 
 # Pydantic models
 class UXAgentRequest(BaseModel):
@@ -958,9 +959,15 @@ def check_ollama_available() -> bool:
     try:
         print(f"🔍 Checking Ollama at {OLLAMA_BASE_URL}/api/tags")
         import httpx
+        
+        # Prepare headers with API key if available
+        headers = {}
+        if OLLAMA_API_KEY:
+            headers['Authorization'] = OLLAMA_API_KEY
+        
         # Disable proxy to avoid Privoxy interference
         with httpx.Client(trust_env=False) as client:
-            response = client.get(f"{OLLAMA_BASE_URL}/api/tags", timeout=5.0)
+            response = client.get(f"{OLLAMA_BASE_URL}/api/tags", headers=headers, timeout=10.0)
             print(f"📡 Ollama response status: {response.status_code}")
             if response.status_code == 200:
                 print("✅ Ollama service is available!")
@@ -979,21 +986,30 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         # Build prompt with chat history context
         prompt = build_context_prompt(agent_type, message, conversation_id)
         
-        # Call Ollama API
-        print(f"🌐 Calling Ollama Cloud API: {OLLAMA_BASE_URL}/api/generate")
+        # Call Ollama Cloud API
+        print(f"🌐 Calling Ollama Cloud API: {OLLAMA_BASE_URL}/api/chat")
         print(f"🤖 Using model: {OLLAMA_MODEL}")
         
+        # Prepare headers with API key if available
+        headers = {}
+        if OLLAMA_API_KEY:
+            headers['Authorization'] = OLLAMA_API_KEY
+        
+        # Use chat API format as per Ollama Cloud documentation
         response = requests.post(
-            f"{OLLAMA_BASE_URL}/api/generate",
+            f"{OLLAMA_BASE_URL}/api/chat",
             json={
                 "model": OLLAMA_MODEL,
-                "prompt": prompt,
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ],
                 "stream": False,
                 "options": {
                     "temperature": 0.7,
                     "num_predict": 4000  # Increased for cloud model - allows much longer responses
                 }
             },
+            headers=headers,
             timeout=120.0  # Increased timeout for cloud model with longer responses
         )
         
@@ -1003,7 +1019,11 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         
         if response.status_code == 200:
             result = response.json()
-            return result.get("response", "No response generated")
+            # Chat API returns message content in message.content
+            if "message" in result and "content" in result["message"]:
+                return result["message"]["content"]
+            else:
+                return result.get("response", "No response generated")
         else:
             print(f"❌ Ollama API error: {response.status_code} - {response.text}")
             return f"Ollama API error: {response.status_code}"
