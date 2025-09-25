@@ -27,12 +27,19 @@
         
         /* Icon and Branding */
         .icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .icon.small {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
         }
         
         .brand-title {
@@ -477,7 +484,7 @@
     <div class="container">
         <!-- Icon and Branding Section -->
         <div class="icon">
-            <img src="/static/docuux.svg" alt="DocuUX Logo" style="width: 60px; height: 60px;">
+            <img src="/static/docuux.svg" alt="DocuUX Logo" style="width: 80px; height: 80px;">
         </div>
         
         <p class="function-desc">UX Workflow, Thinking & Writing Assistant</p>
@@ -658,6 +665,13 @@
             const responseArea = document.getElementById('response-area');
             responseArea.classList.remove('show');
             responseArea.style.display = 'none'; // Force hide
+            
+            // Restore logo to original size
+            const icon = document.querySelector('.icon');
+            const logoImg = icon.querySelector('img');
+            icon.classList.remove('small');
+            logoImg.style.width = '80px';
+            logoImg.style.height = '80px';
             
             // Clear input
             document.getElementById('message-input').value = '';
@@ -862,6 +876,13 @@
                     
                     // Scroll to bottom to show latest messages
                     responseArea.scrollTop = responseArea.scrollHeight;
+                    
+                    // Make logo smaller when showing chat history
+                    const icon = document.querySelector('.icon');
+                    const logoImg = icon.querySelector('img');
+                    icon.classList.add('small');
+                    logoImg.style.width = '60px';
+                    logoImg.style.height = '60px';
                 })
                 .catch(error => {
                     console.error('Error loading chat history:', error);
@@ -889,6 +910,13 @@
             // Show chat area
             responseArea.classList.add('show');
             responseArea.style.display = 'block'; // Force display
+            
+            // Make logo smaller when chatting
+            const icon = document.querySelector('.icon');
+            const logoImg = icon.querySelector('img');
+            icon.classList.add('small');
+            logoImg.style.width = '60px';
+            logoImg.style.height = '60px';
             
             // Hide prompt cards when sending message
             hidePromptCards();
