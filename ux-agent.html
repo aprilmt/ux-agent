@@ -22,6 +22,7 @@
             width: 100%;
             padding: 40px 20px;
             text-align: center;
+            position: relative;
         }
         
         /* Icon and Branding */
@@ -186,6 +187,10 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.3s ease-in-out;
+            position: sticky;
+            top: 140px; /* Position right under the logo area with proper spacing */
+            z-index: 10;
+            margin-top: 20px; /* Additional spacing from content above */
         }
         
         .response-area.show {
@@ -705,11 +710,11 @@
                 .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1 headings
                 .replace(/^\- (.*$)/gim, '<li>$1</li>'); // List items
             
-            // Handle bold and italic formatting more consistently
-            // Process bold first (double asterisks), then italic (single asterisks)
+            // Normalize text formatting - make it more consistent
+            // Remove inconsistent italic formatting and standardize
             formatted = formatted
-                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Bold text
-                .replace(/\*([^*]+)\*/g, '<em>$1</em>'); // Italic text
+                .replace(/\*([^*]+)\*/g, '$1') // Remove single asterisks (italics) for consistency
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'); // Keep only bold formatting
             
             // Handle specific patterns from AI responses
             formatted = formatted
@@ -719,13 +724,11 @@
                 .replace(/<strong>2\. More Specific Version:<\/strong>/g, '<h3>2. More Specific Version:</h3>')
                 .replace(/<strong>3\. Focused\/Final Version:<\/strong>/g, '<h3>3. Focused/Final Version:</h3>');
             
-            // Normalize formatting - ensure consistent bold/italic patterns
-            // Handle cases where text should be consistently formatted
+            // Clean up any remaining markdown artifacts
             formatted = formatted
-                .replace(/(<strong>.*?<\/strong>):/g, '$1:') // Remove extra colons after bold text
-                .replace(/(<em>.*?<\/em>):/g, '$1:') // Remove extra colons after italic text
                 .replace(/\*\*([^*:]+):\*\*/g, '<strong>$1:</strong>') // Fix bold text with colons
-                .replace(/\*([^*:]+):\*/g, '<em>$1:</em>'); // Fix italic text with colons
+                .replace(/\*([^*:]+):\*/g, '$1:') // Remove italic formatting with colons
+                .replace(/\*([^*]+)\*/g, '$1'); // Remove any remaining single asterisks
             
             // Handle paragraph breaks and line breaks
             formatted = formatted
