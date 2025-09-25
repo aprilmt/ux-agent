@@ -1461,9 +1461,11 @@ async def chat_with_ux_agent(request: UXAgentRequest):
     """Chat with UX AI agent using Ollama with chat history"""
     # Get or create conversation
     conversation_id = get_or_create_conversation(request.conversation_id)
+    print(f"🔍 Conversation ID: {conversation_id}, Request conversation_id: {request.conversation_id}")
     
     # Add user message to history
     add_message_to_history(conversation_id, "user", request.message)
+    print(f"📝 Added user message to conversation {conversation_id}. History length: {len(chat_sessions[conversation_id])}")
     
     # Generate response using LLM
     if ollama_available:

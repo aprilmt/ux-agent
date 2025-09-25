@@ -553,6 +553,7 @@
 
         // Initialize conversation ID
         currentConversationId = getConversationId();
+        console.log('Initial conversation ID:', currentConversationId);
 
         // Check backend status
         fetch('/health')
@@ -918,6 +919,7 @@
             `;
             responseArea.appendChild(userMessage);
             
+            console.log('Sending message with conversation_id:', currentConversationId);
             fetch('/api/ux-agent/chat', {
                 method: 'POST',
                 headers: {
