@@ -38,8 +38,8 @@ async def read_root():
     return FileResponse("ux-agent.html")
 
 # Ollama configuration
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "https://ollama.com")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud")
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:120b")
 OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 
 # Pydantic models
@@ -986,31 +986,29 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         # Build prompt with chat history context
         prompt = build_context_prompt(agent_type, message, conversation_id)
         
-        # Call Ollama Cloud API
-        print(f"🌐 Calling Ollama Cloud API: {OLLAMA_BASE_URL}/api/chat")
+        # Call Ollama API
+        print(f"🌐 Calling Ollama API: {OLLAMA_BASE_URL}/api/generate")
         print(f"🤖 Using model: {OLLAMA_MODEL}")
         
-        # Prepare headers with API key if available
+        # Prepare headers with API key if available (for cloud)
         headers = {}
         if OLLAMA_API_KEY:
             headers['Authorization'] = OLLAMA_API_KEY
         
-        # Use chat API format as per Ollama Cloud documentation
+        # Use generate API format for local Ollama
         response = requests.post(
-            f"{OLLAMA_BASE_URL}/api/chat",
+            f"{OLLAMA_BASE_URL}/api/generate",
             json={
                 "model": OLLAMA_MODEL,
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ],
+                "prompt": prompt,
                 "stream": False,
                 "options": {
                     "temperature": 0.7,
-                    "num_predict": 4000  # Increased for cloud model - allows much longer responses
+                    "num_predict": 4000  # Allow longer responses from GPT-OSS model
                 }
             },
             headers=headers,
-            timeout=120.0  # Increased timeout for cloud model with longer responses
+            timeout=120.0  # Longer timeout for large GPT-OSS model
         )
         
         print(f"📡 Response status: {response.status_code}")
@@ -1019,11 +1017,7 @@ def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int
         
         if response.status_code == 200:
             result = response.json()
-            # Chat API returns message content in message.content
-            if "message" in result and "content" in result["message"]:
-                return result["message"]["content"]
-            else:
-                return result.get("response", "No response generated")
+            return result.get("response", "No response generated")
         else:
             print(f"❌ Ollama API error: {response.status_code} - {response.text}")
             return f"Ollama API error: {response.status_code}"
