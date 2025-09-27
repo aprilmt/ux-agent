@@ -587,7 +587,7 @@
                 // Load existing conversation if available
                 if (currentConversationId) {
                     loadChatHistory(currentConversationId);
-                    hidePromptCards(); // Hide cards if there's existing conversation
+                    // Don't hide prompt cards here - let loadChatHistory decide based on actual messages
                 }
             })
             .catch(error => {
@@ -841,49 +841,58 @@
                     const responseArea = document.getElementById('response-area');
                     responseArea.innerHTML = '<p class="loading"></p>';
                     
-                    data.messages.forEach(msg => {
-                        const messageDiv = document.createElement('div');
-                        messageDiv.className = `response-message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`;
-                        
-                        const time = new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                        
-                        if (msg.role === 'user') {
-                            messageDiv.innerHTML = `
-                                <div class="message-avatar user-avatar">U</div>
-                                <div class="message-content">
-                                    <div class="message-header">
-                                        <span class="message-sender">User</span>
-                                        <span class="message-time">${time}</span>
+                    // Only proceed if there are actual messages
+                    if (data.messages && data.messages.length > 0) {
+                        data.messages.forEach(msg => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = `response-message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`;
+                            
+                            const time = new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                            
+                            if (msg.role === 'user') {
+                                messageDiv.innerHTML = `
+                                    <div class="message-avatar user-avatar">U</div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender">User</span>
+                                            <span class="message-time">${time}</span>
+                                        </div>
+                                        <div class="message-bubble">${msg.content}</div>
                                     </div>
-                                    <div class="message-bubble">${msg.content}</div>
-                                </div>
-                            `;
-                        } else {
-                            messageDiv.innerHTML = `
-                                <div class="message-avatar ai-avatar">AI</div>
-                                <div class="message-content">
-                                    <div class="message-header">
-                                        <span class="message-sender">AI Assistant</span>
-                                        <span class="ai-badge">AI</span>
-                                        <span class="message-time">${time}</span>
+                                `;
+                            } else {
+                                messageDiv.innerHTML = `
+                                    <div class="message-avatar ai-avatar">AI</div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender">AI Assistant</span>
+                                            <span class="ai-badge">AI</span>
+                                            <span class="message-time">${time}</span>
+                                        </div>
+                                        <div class="message-bubble">${formatResponseText(msg.content)}</div>
                                     </div>
-                                    <div class="message-bubble">${formatResponseText(msg.content)}</div>
-                                </div>
-                            `;
-                        }
+                                `;
+                            }
+                            
+                            responseArea.appendChild(messageDiv);
+                        });
                         
-                        responseArea.appendChild(messageDiv);
-                    });
-                    
-                    // Scroll to bottom to show latest messages
-                    responseArea.scrollTop = responseArea.scrollHeight;
-                    
-                    // Make logo smaller when showing chat history
-                    const icon = document.querySelector('.icon');
-                    const logoImg = icon.querySelector('img');
-                    icon.classList.add('small');
-                    logoImg.style.width = '60px';
-                    logoImg.style.height = '60px';
+                        // Hide prompt cards only if there are actual messages
+                        hidePromptCards();
+                        
+                        // Scroll to bottom to show latest messages
+                        responseArea.scrollTop = responseArea.scrollHeight;
+                        
+                        // Make logo smaller when showing chat history
+                        const icon = document.querySelector('.icon');
+                        const logoImg = icon.querySelector('img');
+                        icon.classList.add('small');
+                        logoImg.style.width = '60px';
+                        logoImg.style.height = '60px';
+                    } else {
+                        // No messages, show prompt cards
+                        showPromptCards();
+                    }
                 })
                 .catch(error => {
                     console.error('Error loading chat history:', error);
