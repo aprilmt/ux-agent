@@ -958,6 +958,7 @@ def check_ollama_available() -> bool:
     """Check if Ollama service is available"""
     try:
         print(f"🔍 Checking Ollama at {OLLAMA_BASE_URL}/api/tags")
+        print(f"🔍 OLLAMA_MODEL: {OLLAMA_MODEL}")
         import httpx
         
         # Prepare headers with API key if available
@@ -978,6 +979,8 @@ def check_ollama_available() -> bool:
                 return False
     except Exception as e:
         print(f"❌ Ollama not available: {e}")
+        import traceback
+        print(f"❌ Traceback: {traceback.format_exc()}")
         return False
 
 def get_ollama_response_sync(message: str, agent_type: str, conversation_id: int) -> str:

@@ -426,6 +426,21 @@
             font-style: normal;
         }
         
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: #4a4a4a;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: baseline;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         .status-indicator {
             position: fixed;
             top: 20px;
@@ -831,6 +846,132 @@
             existingPrompts.forEach(p => p.remove());
         }
 
+        // Typing effect function for AI responses
+        function typeText(element, htmlContent, speed = 20, callback) {
+            // Create a temporary container to parse HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            
+            // Extract nodes preserving structure
+            const nodes = [];
+            
+            function extractNodes(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    // Include text nodes (even if just whitespace for proper formatting)
+                    nodes.push({ type: 'text', content: node.textContent });
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = node.tagName.toLowerCase();
+                    const attrs = {};
+                    if (node.attributes) {
+                        for (let attr of node.attributes) {
+                            attrs[attr.name] = attr.value;
+                        }
+                    }
+                    nodes.push({ type: 'open', tag: tagName, attrs: attrs });
+                    
+                    // Process children
+                    for (let child of node.childNodes) {
+                        extractNodes(child);
+                    }
+                    
+                    nodes.push({ type: 'close', tag: tagName });
+                }
+            }
+            
+            // Extract all nodes from all children (handle multiple top-level elements)
+            for (let child of tempDiv.childNodes) {
+                extractNodes(child);
+            }
+            
+            // Clear the element and start typing
+            element.innerHTML = '';
+            let currentIndex = 0;
+            let currentTextIndex = 0;
+            let currentHTML = '';
+            let scrollInterval = null;
+            
+            function typeNext() {
+                if (currentIndex >= nodes.length) {
+                    // Remove cursor
+                    const cursor = element.querySelector('.typing-cursor');
+                    if (cursor) cursor.remove();
+                    
+                    // Clear scroll interval
+                    if (scrollInterval) {
+                        clearInterval(scrollInterval);
+                    }
+                    
+                    if (callback) callback();
+                    return;
+                }
+                
+                const node = nodes[currentIndex];
+                
+                if (node.type === 'open') {
+                    // Open tag - insert immediately
+                    let tagHTML = `<${node.tag}`;
+                    for (let attr in node.attrs) {
+                        tagHTML += ` ${attr}="${node.attrs[attr]}"`;
+                    }
+                    tagHTML += '>';
+                    currentHTML += tagHTML;
+                    element.innerHTML = currentHTML + '<span class="typing-cursor"></span>';
+                    currentIndex++;
+                    setTimeout(typeNext, 0);
+                } else if (node.type === 'close') {
+                    // Close tag - insert immediately
+                    currentHTML += `</${node.tag}>`;
+                    element.innerHTML = currentHTML + '<span class="typing-cursor"></span>';
+                    currentIndex++;
+                    setTimeout(typeNext, 0);
+                } else if (node.type === 'text') {
+                    // Text content - type character by character
+                    if (currentTextIndex < node.content.length) {
+                        // Escape special characters for HTML safety
+                        const char = node.content[currentTextIndex];
+                        if (char === '&') {
+                            currentHTML += '&amp;';
+                        } else if (char === '<') {
+                            currentHTML += '&lt;';
+                        } else if (char === '>') {
+                            currentHTML += '&gt;';
+                        } else {
+                            currentHTML += char;
+                        }
+                        
+                        element.innerHTML = currentHTML + '<span class="typing-cursor"></span>';
+                        currentTextIndex++;
+                        
+                        // Scroll to bottom periodically while typing (every 5 characters)
+                        if (currentTextIndex % 5 === 0) {
+                            const responseArea = document.getElementById('response-area');
+                            if (responseArea) {
+                                responseArea.scrollTop = responseArea.scrollHeight;
+                            }
+                        }
+                        
+                        setTimeout(typeNext, speed);
+                    } else {
+                        // Finished this text node, move to next
+                        currentTextIndex = 0;
+                        currentIndex++;
+                        setTimeout(typeNext, 0);
+                    }
+                }
+            }
+            
+            // Start typing
+            typeNext();
+            
+            // Set up periodic scrolling
+            scrollInterval = setInterval(() => {
+                const responseArea = document.getElementById('response-area');
+                if (responseArea) {
+                    responseArea.scrollTop = responseArea.scrollHeight;
+                }
+            }, 200);
+        }
+
         // Load chat history function
         function loadChatHistory(conversationId) {
             if (!conversationId) return;
@@ -994,6 +1135,9 @@
                 aiResponse.className = 'response-message ai-message';
                 const responseTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 const agentName = data.agent_used.charAt(0).toUpperCase() + data.agent_used.slice(1) + ' Agent';
+                const formattedResponse = formatResponseText(data.response);
+                
+                // Create the message structure
                 aiResponse.innerHTML = `
                     <div class="message-avatar ai-avatar">AI</div>
                     <div class="message-content">
@@ -1002,10 +1146,25 @@
                             <span class="ai-badge">AI</span>
                             <span class="message-time">${responseTime}</span>
                         </div>
-                        <div class="message-bubble">${formatResponseText(data.response)}</div>
+                        <div class="message-bubble"></div>
                     </div>
                 `;
                 responseArea.appendChild(aiResponse);
+                
+                // Get the message bubble element and apply typing effect
+                const messageBubble = aiResponse.querySelector('.message-bubble');
+                typeText(messageBubble, formattedResponse, 15, () => {
+                    // Typing complete - scroll to bottom and add recommended prompts
+                    setTimeout(() => {
+                        responseArea.scrollTop = responseArea.scrollHeight;
+                        addRecommendedPrompts(data.response, data.agent_used);
+                    }, 100);
+                });
+                
+                // Initial scroll to show the message
+                setTimeout(() => {
+                    responseArea.scrollTop = responseArea.scrollHeight;
+                }, 100);
                 
                 // Clear input and reset button
                 messageInput.value = '';
@@ -1017,14 +1176,6 @@
                 newChatButton.disabled = false;
                 
                 messageInput.focus();
-                
-                // Add recommended prompts based on the response
-                addRecommendedPrompts(data.response, data.agent_used);
-                
-                // Scroll to bottom to show the latest response
-                setTimeout(() => {
-                    responseArea.scrollTop = responseArea.scrollHeight;
-                }, 100);
             })
             .catch(error => {
                 console.error('Error:', error);
